@@ -1,0 +1,59 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Nothing to install, container image should have it all based on what we selected
+  pre_build:
+    commands:
+      - echo Just listing basic information about the environment
+      - which mvn
+      - mvn -version
+      - pwd
+
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      # - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - REPOSITORY_URI=535243943550.dkr.ecr.us-east-2.amazonaws.com/park
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn package
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Working on creating the tar ball with the WAR and AppSpec file for CodeDeploy
+      - mkdir appfiles
+      - cd appfiles
+      - cp ../target/managemylearning-admin-portal-0.0.1-SNAPSHOT.jar mmladminportal.jar
+      - cp ../appspec.yml .
+      - cp ../runAdminPortal.sh runAdminPortal1.sh      
+      - ls -al
+      - tar -zcvf ../target/MMLAdminPortal.tar.gz *.*
+
+      - cp ../Dockerfile .  
+      - echo Building the Docker image...          
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing image definitions file...
+     # - printf '[{"name":"park","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      
+artifacts:
+  files:
+# IMPORTANT
+# You have to use the tar.gz if you are manually executing CodeDeploy
+    - target/MMLAdminPortal.tar.gz
+# Use the individual files if you are using the CodeDeploy from CodePipeline
+# Reason is pipeline does not untar and errors out saying that the appspec file is not there
+#    - appfiles/appspec.yml
+#    - appfiles/mmladminportal.jar
+#    - appfiles/runAdminPortal1.sh
+  discard-paths: yes
