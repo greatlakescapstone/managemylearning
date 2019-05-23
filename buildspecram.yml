@@ -2,7 +2,8 @@ version: 0.2
 
 phases:
   install:
-    commands:
+      runtime-versions:
+      java: openjdk8
       - echo Nothing to install, container image should have it all based on what we selected
   pre_build:
     commands:
