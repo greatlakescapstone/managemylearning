@@ -4,8 +4,7 @@ phases:
   install:
       runtime-versions:
 java: openjdk8
-      - echo Nothing to install, container image should have it all based on what we selected
-  pre_build:
+pre_build:
     commands:
       - echo Just listing basic information about the environment
       - which mvn
