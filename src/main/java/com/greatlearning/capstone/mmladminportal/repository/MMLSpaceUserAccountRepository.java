@@ -11,6 +11,4 @@ import com.greatlearning.capstone.mmladminportal.model.User;
  * @author Givantha Kalansuriya
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-	
-}
+public interface MMLSpaceUserAccountRepository extends JpaRepository<User, Long> {}

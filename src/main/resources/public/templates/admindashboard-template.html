@@ -1,0 +1,65 @@
+<div >
+  <h2>Condensed Table</h2>
+  <p>The .table-condensed class makes a table more compact by cutting cell padding in half:</p>            
+  <table class="table table-condensed table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+          <th> Admin Id </th>
+          <th> Password </th>
+          <th> Email </th>
+          <th> Status </th>
+          <th> Last Login </th>
+          <th> Created At </th>
+          <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      	 <td>1</td>
+        <td>John</td>
+        <td>ads#324</td>
+        <td>john@example.com</td>
+        <td>active</td>
+        <td></td>
+        <td></td>
+        <td><input type="submit" class="btnSubmit" value="Edit" /></td>
+        
+      </tr>
+      <tr>
+ 	    <td>2</td>      
+        <td>Mary</td>
+        <td>Moe</td>
+        <td>mary@example.com</td>
+        <td>active</td>
+        <td></td>
+        <td></td>        
+        <td><input type="submit" class="btnSubmit" value="Edit" /></td>        
+      </tr>
+      <tr>
+       	 <td>3</td>
+        <td>July</td>
+        <td>Dooley</td>
+        <td>july@example.com</td>
+        <td>active</td>
+        <td></td>
+        <td></td>        
+      </tr>
+         <% _.each(admins, function(admin){ %>
+           <tr>
+           	<td> 1</td>
+            <td> <%= admin.get('admin') %> </td>
+            <td> <%= admin.get('password') %> </td>
+            <td> <%= admin.get('email') %> </td>
+            <td> <%= admin.get('status') %> </td>
+            <td> <%= admin.get('Last Login') %> </td>
+            <td> <%= admin.get('Created At') %> </td>
+        <td><input type="submit" class="btnSubmit" value="Edit" /></td>            
+           </tr> 
+         <% }); %>      
+    </tbody>
+  </table>
+</div>
+
+
+

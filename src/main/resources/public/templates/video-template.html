@@ -1,0 +1,32 @@
+<!-- Modal -->
+<input type="hidden" id="autoClickModalVideo" data-toggle="modal" data-target="#myModal" />
+			     	
+ <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+			    
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>This is a large modal.</p>
+
+                <!-- source https://github.com/video-dev/hls.js/ -->
+                <!-- Or if you want a more recent canary version -->
+                <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
+                <video id="video" style="width:800px;" src=window.currentVideoLink controls>
+                  	
+                </video>
+
+ 
+ 
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" onClick="var video=document.getElementById('video'); video.pause(); video.currentTime=0;" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

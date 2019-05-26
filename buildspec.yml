@@ -13,6 +13,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
+      - chmod a+x
       - mvn package
   post_build:
     commands:
@@ -29,10 +30,10 @@ artifacts:
   files:
 # IMPORTANT
 # You have to use the tar.gz if you are manually executing CodeDeploy
-    - target/MMLAdminPortal.tar.gz
+#    - target/MMLAdminPortal.tar.gz
 # Use the individual files if you are using the CodeDeploy from CodePipeline
 # Reason is pipeline does not untar and errors out saying that the appspec file is not there
-#    - appfiles/appspec.yml
-#    - appfiles/mmladminportal.jar
-#    - appfiles/runAdminPortal1.sh
+    - appfiles/appspec.yml
+    - appfiles/mmladminportal.jar
+    - appfiles/runAdminPortal1.sh
   discard-paths: yes
