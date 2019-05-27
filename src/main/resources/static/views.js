@@ -14,21 +14,13 @@ var LoginForm = Backbone.View.extend({
 				var loginDetails = $(ev.currentTarget).serializeObject();
 				COGNITO.login(loginDetails,	{
 					onSuccess:function(){
-						
+						_config.userId = loginDetails.userId;
 						DYNAMODB.init();
 						//DYNAMODB.listTables();
 						
 						S3.init();
 						
-					/*	S3.listBucketItems(null, {
-							onSuccess:function(albums){
-								if(albums.length>0){
-									S3.getBucketItem(null, albums[01]);
-								}
-							},onFailure:function(albums){
-							
-							}
-						});*/
+
 						
 						router.navigate('dashboard', {
 							trigger : true
@@ -41,23 +33,7 @@ var LoginForm = Backbone.View.extend({
 					}
 				});	
 
-			  
-		
-/*		var loginDetails = $(ev.currentTarget).serializeObject();
-		
-		var session = new Session();
-		session.save(loginDetails,{
-			
-			success: function(data){
-				console.log("Session %o", data.toJSON());
-				router.navigate('dashboard', {trigger:true})
-			},
-			error: function(data){
-				console.log("Failed Session %o", data.toJSON());
-				router.navigate('', {trigger:true})
-			}
-		});
-		*/
+
 		return false;
 	}
 });
@@ -202,12 +178,26 @@ var SearchContentResultTable = Backbone.View.extend({
 			
 			if(link.match(_config.videoExtRegExPattern)){
 				window.currentVideoLink = link;
-				if(videoPane == null){
+				var video;
+				if(link.match(_config.videoStreamingRegExPattern)){
 					
+					if(videoStreamingPane != null){
+						try{videoStreamingPane.dispose()}catch(e){console.log(e);}
+					}
+					videoStreamingPane = new VideoStreamingPane();
+						
+					
+					video = videoStreamingPane;
+				}else{
+					if(videoPane != null){
+						try{videoPane.dispose()}catch(e){console.log(e);}
+					}
 					videoPane = new VideoPane();
+				
+					video = videoPane;
 				}
 				try{
-					videoPane.render();
+					video.render();
 					document.getElementById("autoClickModalVideo").click();
 					
 				}catch(e){
@@ -236,6 +226,18 @@ var SearchContentResultTable = Backbone.View.extend({
 });
 var videoPane = null;
 var VideoPane = Backbone.View.extend({
+	el:'.videocontainer',
+	render: function(){
+		var that = this;
+		var template  =_.template(tpl.get('video-template'));
+		var data = {videolink:window.currentVideoLink}
+		that.$el.html(template(data));
+		
+	}
+});
+
+var videoStreamingPane = null;
+var VideoStreamingPane = Backbone.View.extend({
 	el:'.videocontainer',
 	render: function(){
 		var that = this;
@@ -281,7 +283,7 @@ var UploadContentDashboard = Backbone.View.extend({
 		
 	},
 	events: {
-		'submit .content-form' : 'upload'
+		'click #uploadContent' : 'upload'
 			
 	},
 	

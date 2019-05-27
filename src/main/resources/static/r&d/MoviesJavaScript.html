@@ -104,15 +104,14 @@ function createItem() {
 }
 
 function readItem() {
-    var table = "Movies";
+    var table = "Content";
     var year = 2015;
     var title = "The Big New Movie";
 
     var params = {
         TableName: table,
         Key:{
-            "year": year,
-            "title": title
+            "content_title": "Akshay_CCNA Introduction",
         }
     };
     docClient.get(params, function(err, data) {

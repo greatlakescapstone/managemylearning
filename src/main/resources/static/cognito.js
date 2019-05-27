@@ -1,6 +1,45 @@
 var COGNITO = COGNITO || {}
 
 COGNITO = {
+	cognitoUser:null,
+	registerAccount: function(username, password, name, email, callback){
+		
+		var poolData = { 
+					UserPoolId : _config.cognito.userPool.userPoolId, 
+					ClientId : _config.cognito.userPool.clientId		        	  	
+		    };
+		
+		    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+		    var attributeList = [];
+
+		    var dataEmail = {
+					Name : 'email', 
+					Value : email, //get from form field
+				};
+				
+			var dataPersonalName = {
+				Name : 'name', 
+				Value : username, //get from form field
+			};
+			
+			var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
+			var attributePersonalName = new AmazonCognitoIdentity.CognitoUserAttribute(dataPersonalName);
+			
+			
+			attributeList.push(attributeEmail);
+			attributeList.push(attributePersonalName);
+
+
+		    userPool.signUp(username, password, attributeList, null, function(err, result){
+		        if (err) {
+		        	callback.onFailure(err);
+		            return;
+		        }
+		        callback.onSuccess(result);
+		        
+		    });
+	},
 
 	login : function(usercredential, callback) {
 		var authenticationData = {
@@ -74,5 +113,10 @@ COGNITO = {
 			
 			console.log(_config);
 		});
+	},
+	logout: function(){
+		if (cognitoUser != null) {
+			cognitoUser.globalSignOut();
+	    }
 	}
 }

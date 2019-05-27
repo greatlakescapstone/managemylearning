@@ -1,6 +1,11 @@
     
 window._config = {
-	videoExtRegExPattern:/\.mp4|\.mov|\.m3u8/g,
+
+	videoStreamingRegExPattern:/\.m3u8|\.dass/g,	
+	videoExtRegExPattern:/\.mps|\.mp4|\.mov|\.m3u8/g,
+	videoExtRegExTypePattern:/mps|mp4|mov|m3u8/g,
+	lineFeedPatternAroundString:/(\s|\r\n|\n|\r)/gm,
+	lineFeedPattern:/(\s|\r\n|\n|\r)/gm,
     cognito: {
     	region: 'us-east-1', // e.g. us-east-2
     	
@@ -20,6 +25,7 @@ window._config = {
 			apiVersion:'2006-03-01',
 			bucket_course_destination:'classifiedcourses',
 			bucket_course_hls_source_origin: 'mmlvideostreamingsolution-source-n6swh5wfqrxg',
+			bucket_course_destination_domain:'classifiedcourses.s3.amazonaws.com',
 			bucket_course_hls_destination_origin: 'https://s3.amazonaws.com/mmlvideostreamingsolution-destination-r4v2gcf173up'
 				
 		},

@@ -40,7 +40,7 @@ DYNAMODB = {
 			var params ; 
 			var i;
 			for(i=0; i<searchtags.length; i++){
-				var tag = searchtags[i].trim().toLowerCase();
+				var tag = searchtags[i].trim().replace(_config.lineFeedPattern,'').toLowerCase();
 				params = {
 				        TableName :_config.cognito.dynamodb.tagTbl,
 				        Item:{
