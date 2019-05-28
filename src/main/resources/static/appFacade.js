@@ -1,7 +1,7 @@
 var AppController = AppController || {}	
 
 AppController = {
-		postContent: function(category, author, title, preview, price, tags, files){
+		postContent: function(category, author, title, preview, priceperminute, onetimeprice, tags, files){
 			
 			category = category.trim().replace(_config.lineFeedPatternAroundString,'');
 			title = title.trim().replace(_config.lineFeedPatternAroundString,'');
@@ -28,7 +28,8 @@ AppController = {
 					data.Location = data.Location.replace(_config.cognito.s3.bucket_course_destination_domain,_config.cognito.cloudfront.classfieddomain);
 					var itemDetails = {
 					        "content_title": content_title,
-					        "price":price,
+					        "price":priceperminute,
+					        "onetimeprice":onetimeprice,
 				            "category": category,
 				            "author": author,
 				            "title": title,
@@ -53,8 +54,8 @@ AppController = {
 								}
 					});
 					
-					
-					var searchTags = [category, author, title].concat(tags.split(","));
+					var authorFirstName = author.substring(0,author.indexOf(' '));
+					var searchTags = [category, author, authorFirstName, title].concat(tags.split(","));
 					
 					DYNAMODB.registerContentWithSearchTags(searchTags, content_title,	
 					{ 

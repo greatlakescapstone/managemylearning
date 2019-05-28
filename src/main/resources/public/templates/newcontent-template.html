@@ -32,12 +32,20 @@
 						placeholder="Associate with tags" class="form-control">
 				</div>
 				<div class="form-group">
-					<label>Select Price <br> <fontcolor-'red'>
-						** For non-video content, price is fixed</font></label> 
-						<input type="text" name="price"
-						id="price" placeholder="Enter price (applied per minute)"
+					<label>Select One time Price for Subscription <br> </label> 
+						<input type="text" name="oneTimePrice"
+						id="oneTimePrice" placeholder="Enter price (applied one time)"
 						class="form-control">
 				</div>
+				
+				<div class="form-group">
+					<label>Select Rate/ minute of content<br> <font color='red'>
+						** Not applicable for non-video content</font></label> 
+						<input type="text" name="price"
+						id="price" placeholder="Enter price (applied per minute)"
+						class="form-control"> <font color='red'>per minute.</font>
+				</div>
+								
 				<div class="form-group">
 					<label>Select file</label> <input type="file" name="file" id="file"
 						placeholder="Select File" class="form-control">

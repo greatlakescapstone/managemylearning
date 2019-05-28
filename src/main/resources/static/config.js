@@ -4,7 +4,7 @@ window._config = {
 	videoStreamingRegExPattern:/\.m3u8|\.dass/g,	
 	videoExtRegExPattern:/\.mps|\.mp4|\.mov|\.m3u8/g,
 	videoExtRegExTypePattern:/mps|mp4|mov|m3u8/g,
-	lineFeedPatternAroundString:/(\s|\r\n|\n|\r)/gm,
+	lineFeedPatternAroundString:/^\s+|\s+$/g,
 	lineFeedPattern:/(\s|\r\n|\n|\r)/gm,
     cognito: {
     	region: 'us-east-1', // e.g. us-east-2

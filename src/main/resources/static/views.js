@@ -261,25 +261,7 @@ var UploadContentDashboard = Backbone.View.extend({
 		
 
 		that.$el.html(template);	
-	/*	$("form#content-form").submit(function(e) {
-		    e.preventDefault();    
-		    var formData = new FormData(this);
 
-		    $.ajax({
-		        url: "/content",
-		        type: 'POST',
-		        data: formData,
-		        success: function (data) {
-		            console.log ("Form submission success");
-		        },
-		        error: function(){
-		        	console.log ("Form submission failure");
-		        },
-		        cache: false,
-		        contentType: false,
-		        processData: false
-		    });
-		});*/
 		
 	},
 	events: {
@@ -294,7 +276,7 @@ var UploadContentDashboard = Backbone.View.extend({
 			
 			AppController.postContent(loginDetails.newcategory, 
 					loginDetails.newauthor,loginDetails.title,
-					loginDetails.preview, loginDetails.price, 
+					loginDetails.preview, loginDetails.price, loginDetails.oneTimePrice, 
 					loginDetails.tags, document.getElementById('file').files);
 
 	  

@@ -44,7 +44,7 @@ public class ViewController {
   @GetMapping("/health")
   public ResponseEntity<String> getAllUsers() {
 
-    return ResponseEntity.ok().body("<html><body>all good</body></html");
+    return ResponseEntity.ok().body("<html><body>all good v3</body></html");
   }
 
  
