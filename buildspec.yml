@@ -35,5 +35,6 @@ artifacts:
 # Reason is pipeline does not untar and errors out saying that the appspec file is not there
     - appfiles/appspec.yml
     - appfiles/mmladminportal.jar
-    - appfiles/runAdminPortal1.sh
+    - appfiles/runAdminPortal.sh
+    - appfiles/shutdown.sh    
   discard-paths: yes
