@@ -22,7 +22,6 @@ package com.greatlearning.capstone.mmladminportal.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -44,7 +43,7 @@ public class ViewController {
   @GetMapping("/health")
   public ResponseEntity<String> getAllUsers() {
 
-    return ResponseEntity.ok().body("<html><body>all good v3</body></html");
+    return ResponseEntity.ok().body("<html><body>all good v4</body></html");
   }
 
  

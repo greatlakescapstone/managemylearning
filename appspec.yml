@@ -10,8 +10,13 @@ permissions:
     mode: 4777
     
 hooks:
+  BeforeInstall:
+    - location: shutdown.sh
+      timeout: 300
+      runas: root
+      
   AfterInstall:
-    - location: runAdminPortal1.sh
+    - location: runAdminPortal.sh
       timeout: 300
       runas: root
 

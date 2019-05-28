@@ -22,7 +22,8 @@ phases:
       - cd appfiles
       - cp ../target/managemylearning-admin-portal-0.0.1-SNAPSHOT.jar mmladminportal.jar
       - cp ../appspec.yml .
-      - cp ../runAdminPortal.sh runAdminPortal1.sh      
+      - cp ../runAdminPortal.sh runAdminPortal.sh    
+      - cp ../shutdown.sh shutdown.sh       
       - ls -al
       - tar -zcvf ../target/MMLAdminPortal.tar.gz *.*
 artifacts:
