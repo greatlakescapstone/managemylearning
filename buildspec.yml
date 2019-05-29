@@ -44,8 +44,9 @@ phases:
       - echo Pushing the Docker images...
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - printf '[{"name":"mmladminportal","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
-  files:
+  files: imagedefinitions.json
 # IMPORTANT
 # You have to use the tar.gz if you are manually executing CodeDeploy
 #    - target/MMLAdminPortal.tar.gz
