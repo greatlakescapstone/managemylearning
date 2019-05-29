@@ -34,6 +34,7 @@ phases:
       - cp ../shutdown.sh shutdown.sh       
       - ls -al
       - tar -zcvf ../target/MMLAdminPortal.tar.gz *.*
+      - cd ..
   post_build:
     commands:
       - echo Docker image creation started on `date`
