@@ -6,6 +6,13 @@ phases:
       - echo Nothing to install, container image should have it all based on what we selected
   pre_build:
     commands:
+      - echo.Logging in to Amazon ECR...
+      - aws --version
+      - $(aws ecr get-login --region us-east-1 --no-include-email)
+      - REPOSITORY_URI=535243943550.dkr.ecr.us-east-1.amazonaws.com/mmladminportal
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      
       - echo Just listing basic information about the environment
       - which mvn
       - mvn -version
@@ -14,8 +21,6 @@ phases:
     commands:
       - echo Build started on `date`
       - mvn package
-  post_build:
-    commands:
       - echo Build completed on `date`
       - echo Working on creating the tar ball with the WAR and AppSpec file for CodeDeploy
       - mkdir appfiles
@@ -26,6 +31,15 @@ phases:
       - cp ../shutdown.sh shutdown.sh       
       - ls -al
       - tar -zcvf ../target/MMLAdminPortal.tar.gz *.*
+  post_build:
+    commands:
+      - echo Docker image creation started on `date`
+      - echo Building the Docker image...
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
 artifacts:
   files:
 # IMPORTANT
