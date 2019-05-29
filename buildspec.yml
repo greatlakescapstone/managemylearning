@@ -46,12 +46,13 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - printf '[{"name":"mmladminportal","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
-  files: imagedefinitions.json
+  files:   
 # IMPORTANT
 # You have to use the tar.gz if you are manually executing CodeDeploy
 #    - target/MMLAdminPortal.tar.gz
 # Use the individual files if you are using the CodeDeploy from CodePipeline
 # Reason is pipeline does not untar and errors out saying that the appspec file is not there
+    - imagedefinitions.json
     - appfiles/appspec.yml
     - appfiles/mmladminportal.jar
     - appfiles/runAdminPortal.sh
