@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.greatlearning.capstone.mmladminportal.ManagemylearningApplication;
-import com.greatlearning.capstone.mmladminportal.model.User;
+import com.greatlearning.capstone.mmladminportal.model.Configurations;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ManagemylearningApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -29,7 +29,7 @@ public class ManagemylearningApplicationTests {
 	private int port;
 
 	private String getRootUrl() {
-		return "http://localhost:" + port;
+		return "http://localhost:" + port + "/api/v1";
 	}
 
 	@Test
@@ -37,64 +37,83 @@ public class ManagemylearningApplicationTests {
 	}
 
 	@Test
-	public void testGetAllUsers() {
+	public void testGetAllConfiguration() {
 		HttpHeaders headers = new HttpHeaders();
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-		ResponseEntity<String> response = restTemplate.exchange(getRootUrl() + "/users",
+		ResponseEntity<String> response = restTemplate.exchange(getRootUrl() + "/config",
 				HttpMethod.GET, entity, String.class);
 
 		Assert.assertNotNull(response.getBody());
 	}
 
 	@Test
-	public void testGetUserById() {
-		User user = restTemplate.getForObject(getRootUrl() + "/users/1", User.class);
-		System.out.println(user.getFirstName());
-		Assert.assertNotNull(user);
+	public void testGetConfigurationsById() {
+		Configurations config = restTemplate.getForObject(getRootUrl() + "/config/lab", Configurations.class);
+		System.out.println(config);
+		Assert.assertNotNull(config);
 	}
 
 	@Test
-	public void testCreateUser() {
-		User user = new User();
-		user.setEmail("admin@gmail.com");
-		user.setFirstName("admin");
-		user.setLastName("admin");
-		user.setCreatedBy("admin");
-		user.setUpdatedBy("admin");
+	public void testCreateConfigurations() {
+		Configurations config = new Configurations();
+		config.setId("production");
 
-		ResponseEntity<User> postResponse = restTemplate.postForEntity(getRootUrl() + "/users", user, User.class);
+
+		config.setCognitoRegion("us-east-1");
+		config.setCognitoUserPoolId("us-east-1_hCrbn9IWs");
+		config.setCognitoUuserPoolClientId("4sqfnv9fs4l3k02gnk81n1kbi2");
+		config.setCognitoIdentityPoolId("us-east-1:4adcf012-d73f-4c77-823f-b22913a4661d");
+		config.setCognitoCloudfrontHlsdomain("d24y44sy387x3m.cloudfront.net");
+		config.setCognitoCloudfrontClassfieddomain("d3n9eih2fcno3x.cloudfront.net");
+		config.setCognitoS3ApiVersion("2006-03-01");
+		config.setCognitoS3BucketCourseDestination("classifiedcourses");
+		config.setCognitoS3BucketCourseHlsSourceOrigin("mmlvideostreamingsolution-source-n6swh5wfqrxg");
+		config.setCognitoS3DestinationDomain("classifiedcourses.s3.amazonaws.com");
+		config.setCognitoS3BucketCourseHlsDestinationOrigin("https://s3.amazonaws.com/mmlvideostreamingsolution-destination-r4v2gcf173up");
+		config.setCognitoDynamoDbContentTbl("Content");
+		config.setCognitoDynamoDbTagTbl("ContentByTag");
+		config.setCognitoDynamoDbMmlWorkspace("mmlworkspace");
+		config.setCognitoDynamoDbOrgAccounts("org_accounts");	
+		config.setCognitoDynamoDbUserAccounts("user_accounts");
+		config.setCognitoDynamoDbUserSubscription("usersubscription");
+		config.setCognitoDynamoDbUserWallet("userwallet");
+		config.setCognitoDynamoDbUserBilling("user_billing_records");
+		config.setCognitoDynamoDbUserCredit("user_creditrecords");
+
+		
+		ResponseEntity<Configurations> postResponse = restTemplate.postForEntity(getRootUrl() + "/config", config, Configurations.class);
 		Assert.assertNotNull(postResponse);
 		Assert.assertNotNull(postResponse.getBody());
 	}
 
 	@Test
 	public void testUpdatePost() {
-		int id = 1;
-		User user = restTemplate.getForObject(getRootUrl() + "/users/" + id, User.class);
-		user.setFirstName("admin1");
-		user.setLastName("admin2");
+		String id = "production";
+		Configurations config = restTemplate.getForObject(getRootUrl() + "/config/" + id, Configurations.class);
+		config.setCognitoDynamoDbMmlWorkspace("mmlworkspace");
+		config.setCognitoDynamoDbOrgAccounts("org_accounts");	
 
-		restTemplate.put(getRootUrl() + "/users/" + id, user);
+		restTemplate.put(getRootUrl() + "/config/" + id, config);
 
-		User updatedUser = restTemplate.getForObject(getRootUrl() + "/users/" + id, User.class);
+		Configurations updatedUser = restTemplate.getForObject(getRootUrl() + "/config/" + id, Configurations.class);
 		Assert.assertNotNull(updatedUser);
 	}
 
-	@Test
+/*	@Test
 	public void testDeletePost() {
-		int id = 2;
-		User user = restTemplate.getForObject(getRootUrl() + "/users/" + id, User.class);
-		Assert.assertNotNull(user);
+		String id = "production";
+		Configurations config = restTemplate.getForObject(getRootUrl() + "/config/" + id, Configurations.class);
+		Assert.assertNotNull(config);
 
-		restTemplate.delete(getRootUrl() + "/users/" + id);
+		restTemplate.delete(getRootUrl() + "/config/" + id);
 
 		try {
-			user = restTemplate.getForObject(getRootUrl() + "/users/" + id, User.class);
+			config = restTemplate.getForObject(getRootUrl() + "/config/" + id, Configurations.class);
 		} catch (final HttpClientErrorException e) {
 			Assert.assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND);
 		}
 	}
-
+*/
 }
 

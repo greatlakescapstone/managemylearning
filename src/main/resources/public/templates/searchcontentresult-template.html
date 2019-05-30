@@ -49,14 +49,14 @@
             <td> 
             	
  	            <label  data-container="body" data-toggle="popover" 
-                	data-placement="top" data-content="<%= content.rating %>" > 
+                	data-placement="top" data-content="<%= JSON.stringify(content.rating).replace("{","[").replace("}","]") %>" > 
 	            	<span class="glyphicon glyphicon-file">
 	             	</span>
 	            </label>
 	                       	
             	<!-- button type="button" class="btn btn-default btn-sm" 
                 	data-container="body" data-toggle="popover" 
-                	data-placement="top" data-content="<%= content.rating %> ">
+                	data-placement="top" data-content="<%= JSON.stringify(content.rating).replace("{","[").replace("}","]") %> ">
 				  <span class="glyphicon glyphicon-file"></span> 
 				</button -->
             </td>
