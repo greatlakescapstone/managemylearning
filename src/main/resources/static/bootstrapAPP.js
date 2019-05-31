@@ -62,7 +62,8 @@ tpl = {
 tpl.loadTemplates(['login-form-template', 'dashboard-template', 
 	'admindashboard-template', 'newcontent-template',
 	'contentdashboard-template', 'searchcontentresult-template',
-	'videostreaming-template','video-template'], function() {
+	'videostreaming-template','video-template',
+	'reports'], function() {
     
     Backbone.history.start();
 });

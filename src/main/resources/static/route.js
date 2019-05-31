@@ -1,7 +1,8 @@
 $.ajaxPrefilter(function(options, originalOptions, jqXHR){
 	console.log("options.url =>", options.url)
 	if(options.url.startsWith("template") 
-			|| options.url.startsWith("http")){
+			|| options.url.startsWith("http") 
+			|| options.url.indexOf("2ig7h87k3i.execute-api.us-east-1.amazonaws.com")>0){
 		
 	}else{
 		options.url = "/api/v1" + options.url;
@@ -21,6 +22,7 @@ var Router = Backbone.Router.extend({
     'contentdashboard':'showContentDashboard',
     'uploadContentDashboard': 'uploadContentDashboard',
     'searchAndShowContentResults':'searchAndShowContentResults',
+    'showReports': 'showReports',
     'showUser': 'users'
   }
 
@@ -71,6 +73,12 @@ router.on('route:searchAndShowContentResults', function(){
 	}
 	contentResultTable.render();
 });
+
+
+router.on('route:showReports', function(){
+	reportPanel.render();
+});
+
 
 router.on('route:users', function(){
 	userList.render();

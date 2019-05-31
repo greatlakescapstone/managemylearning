@@ -3,14 +3,35 @@ var LoginForm = Backbone.View.extend({
 	render: function(){
 		var that = this;
 		var template  =_.template(tpl.get('login-form-template'))
+		
+		var config = new Config();
+		config.fetch({
+			success: function (config){
+				console.log(" config = %o", config.models)
+				_config.init(config.models[0]);
+				
+				
+				
+				
 
-		that.$el.html(template);	
+				that.$el.html(template);	
+				
+				
+			},
+			error: function(){
+				console.log("some problem accessing server");	
+				
+
+				that.$el.html(template);	
+			}
+		});
 	},
 	events: {
 		'submit .login-form': 'signin'
 	},
 	signin: function(ev){
 		
+				
 				var loginDetails = $(ev.currentTarget).serializeObject();
 				COGNITO.login(loginDetails,	{
 					onSuccess:function(){
@@ -57,7 +78,8 @@ var Dashboard = Backbone.View.extend({
 		'click #dashboard' : 'showDashboard',
 		'click #manageAdmins' : 'showAdminDashboard',
 		'click #manageWorkspace' : 'showWorkspaceDashboard',
-		'click #manageContents' : 'showContentDashoard'
+		'click #manageContents' : 'showContentDashoard',
+		'click #reportsByUsrExp' : 'showReports'
 			
 	},
 	logout: function(ev){
@@ -78,6 +100,10 @@ var Dashboard = Backbone.View.extend({
 	},
 	showContentDashoard: function(ev){
 		router.navigate('contentdashboard', {trigger:true})
+		return false;
+	},
+	showReports: function(ev){
+		router.navigate('showReports', {trigger:true})
 		return false;
 	}
 	 
@@ -125,10 +151,8 @@ var ContentDashboard = Backbone.View.extend({
 			ev.preventDefault();
 			var data = $(ev.currentTarget).serializeObject();
 			window.currentSearchCriteria = data.searchByTags;
-			if(contentResultTable == null){
-				
-				contentResultTable = new SearchContentResultTable();
-			}
+			contentResultTable = new SearchContentResultTable();
+			
 			contentResultTable.render();
 	  
 	    return false;
@@ -285,6 +309,30 @@ var UploadContentDashboard = Backbone.View.extend({
 });
 
 
+var ReportPanel = Backbone.View.extend({
+	el:'.dashboardcontent',
+	render: function(){
+		var that = this;
+		
+		$.ajax({
+	        url: "https://2ig7h87k3i.execute-api.us-east-1.amazonaws.com/dev",
+	        type: 'get',
+	        
+	        success: function (data) {
+	        	var template  =_.template(tpl.get('reports'));
+				var data = {data: data}
+				that.$el.html(template(data));
+	        },
+	        error: function(){
+	        	console.log ("failed to fetch photo data");
+	        }
+	    });
+		
+		
+	}
+});
+
+reportPanel = new ReportPanel();
 
 
 var UserList = Backbone.View.extend({

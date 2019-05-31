@@ -6,6 +6,48 @@ window._config = {
 	videoExtRegExTypePattern:/mps|mp4|mov|m3u8/g,
 	lineFeedPatternAroundString:/^\s+|\s+$/g,
 	lineFeedPattern:/(\s|\r\n|\n|\r)/gm,
+	
+
+	init(model){
+		
+		if(model){
+			_config.cognito.region = model.get("cognitoRegion");
+	    	
+			_config.cognito.userPool.userPoolId = model.get("cognitoUserPoolId");
+		            
+			_config.cognito.userPool.clientId = model.get("cognitoUuserPoolClientId");
+		        
+			_config.cognito.identityPool.identityPoolId = model.get("cognitoIdentityPoolId");
+			_config.cognito.cloudfront.hlsdomain = model.get("cognitoCloudfrontHlsdomain");
+			_config.cognito.cloudfront.classfieddomain = model.get("cognitoCloudfrontClassfieddomain");
+			
+				
+			_config.cognito.s3.apiVersion = model.get("cognitoS3ApiVersion");
+			_config.cognito.s3.bucket_course_destination = model.get("cognitoS3BucketCourseDestination");
+			_config.cognito.s3.bucket_course_hls_source_origin = model.get("cognitoS3BucketCourseHlsSourceOrigin");
+			_config.cognito.s3.bucket_course_destination_domain = model.get("cognitoS3DestinationDomain"); 
+			_config.cognito.s3.bucket_course_hls_destination_origin = model.get("cognitoS3BucketCourseHlsDestinationOrigin");
+			
+			
+			_config.cognito.dynamodb.contentTbl = model.get("cognitoDynamoDbContentTbl"); 
+			_config.cognito.dynamodb.tagTbl = model.get("cognitoDynamoDbTagTbl"); 
+			_config.cognito.dynamodb.mmlworkspace = model.get("cognitoDynamoDbMmlWorkspace"); 
+			_config.cognito.dynamodb.orgaccounts = model.get("cognitoDynamoDbOrgAccounts"); 
+			_config.cognito.dynamodb.useraccounts = model.get("cognitoDynamoDbUserAccounts"); 
+			_config.cognito.dynamodb.usersubscription = model.get("cognitoDynamoDbUserSubscription"); 
+			_config.cognito.dynamodb.userwallet = model.get("cognitoDynamoDbUserWallet"); 
+			_config.cognito.dynamodb.userbilling = model.get("cognitoDynamoDbUserBilling"); 
+			_config.cognito.dynamodb.usercredit = model.get("cognitoDynamoDbUserCredit"); 
+			
+			console.log("Updated config " + JSON.stringify(_config));
+					
+		}else{
+			console.log("failed to fetch configuration for target env. Running with default configuration");
+			
+		}
+
+	},
+	
     cognito: {
     	region: 'us-east-1', // e.g. us-east-2
     	
