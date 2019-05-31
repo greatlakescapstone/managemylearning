@@ -43,7 +43,7 @@ public class ViewController {
   @GetMapping("/health")
   public ResponseEntity<String> getAllUsers() {
 
-    return ResponseEntity.ok().body("<html><body>This is V5 deployed at 2.39 am May 31st</body></html");
+    return ResponseEntity.ok().body("<html><body>This is V6 deployed at 3 am am june 1st</body></html");
   }
 
  
