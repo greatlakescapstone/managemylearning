@@ -57,12 +57,12 @@ public class ManagemylearningApplicationTests {
 	@Test
 	public void testCreateConfigurations() {
 		Configurations config = new Configurations();
-		config.setId("production");
+		config.setId("production-adminportal");
 
 
 		config.setCognitoRegion("us-east-1");
-		config.setCognitoUserPoolId("us-east-1_hCrbn9IWs");
-		config.setCognitoUuserPoolClientId("4sqfnv9fs4l3k02gnk81n1kbi2");
+		config.setCognitoUserPoolId("us-east-1_7pGvAR1Zk");
+		config.setCognitoUserPoolClientId("6gqc8dln4ihgcnq0ai3tvmpk29");
 		config.setCognitoIdentityPoolId("us-east-1:4adcf012-d73f-4c77-823f-b22913a4661d");
 		config.setCognitoCloudfrontHlsdomain("d24y44sy387x3m.cloudfront.net");
 		config.setCognitoCloudfrontClassfieddomain("d3n9eih2fcno3x.cloudfront.net");

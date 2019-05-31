@@ -289,7 +289,7 @@ var UploadContentDashboard = Backbone.View.extend({
 		
 	},
 	events: {
-		'click #uploadContent' : 'upload'
+		'submit .content-form' : 'upload'
 			
 	},
 	

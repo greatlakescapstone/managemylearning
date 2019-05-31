@@ -37,29 +37,40 @@ DYNAMODB = {
 		    });
 		},
 		registerContentWithSearchTags: function(searchtags, contenttitle, callback){
-			var params ; 
-			var i;
-			for(i=0; i<searchtags.length; i++){
-				var tag = searchtags[i].trim().replace(_config.lineFeedPatternAroundString,'').toLowerCase();
-				params = {
-				        TableName :_config.cognito.dynamodb.tagTbl,
-				        Item:{
-				            "content_tag": tag,
-				            "content_title": contenttitle
-				        }
-				    };
-				    docClient.put(params, function(err, data) {
-				    	
-				        if (err) {
-				        	callback.onFailure(err);
-				            
-				        } else {
-				        	callback.onSuccess(data);
-				            
-				        }
-				    });
-			}
-			 
+				try {
+					var isError = false;
+					var params;
+					var i;
+					for (i = 0; i < searchtags.length; i++) {
+						var tag = searchtags[i].trim().replace(
+								_config.lineFeedPatternAroundString, '').toLowerCase();
+						if (!tag)
+							continue;
+						params = {
+							TableName : _config.cognito.dynamodb.tagTbl,
+							Item : {
+								"content_tag" : tag,
+								"content_title" : contenttitle
+							}
+						};
+						docClient.put(params, function(err, data) {
+		
+							if (err) {
+					        	isError = true;
+					        } 
+						});
+					}
+					
+					if(isError){
+						callback.onFailure("failed to update tags");
+					}else{
+						callback.onSuccess();
+					}
+				} catch (err) {
+					console.log(err);
+					callback.onFailure(err);
+				}
+				 
 		},
 		queryData: function(tags, callback) {
 			

@@ -1,5 +1,5 @@
 var Config = Backbone.Collection.extend({
-	url: '/config'
+	url: '/config/production-adminportal'
 });
 
 

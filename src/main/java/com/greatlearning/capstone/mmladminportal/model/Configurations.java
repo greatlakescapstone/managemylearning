@@ -16,7 +16,7 @@ public class Configurations {
 	private String cognitoRegion = "";
 
 	private String cognitoUserPoolId = "";
-	private String cognitoUuserPoolClientId = "";
+	private String cognitoUserPoolClientId = "";
 
 	private String cognitoIdentityPoolId = "";
 
@@ -65,12 +65,12 @@ public class Configurations {
 		this.cognitoUserPoolId = cognitoUserPoolId;
 	}
 
-	public String getCognitoUuserPoolClientId() {
-		return cognitoUuserPoolClientId;
+	public String getCognitoUserPoolClientId() {
+		return cognitoUserPoolClientId;
 	}
 
-	public void setCognitoUuserPoolClientId(String cognitoUuserPoolClientId) {
-		this.cognitoUuserPoolClientId = cognitoUuserPoolClientId;
+	public void setCognitoUserPoolClientId(String cognitoUuserPoolClientId) {
+		this.cognitoUserPoolClientId = cognitoUuserPoolClientId;
 	}
 
 	public String getCognitoIdentityPoolId() {
@@ -212,7 +212,7 @@ public class Configurations {
 	@Override
 	public String toString() {
 		return "Configurations [id=" + id + ", cognitoRegion=" + cognitoRegion + ", cognitoUserPoolId="
-				+ cognitoUserPoolId + ", cognitoUuserPoolClientId=" + cognitoUuserPoolClientId
+				+ cognitoUserPoolId + ", cognitoUuserPoolClientId=" + cognitoUserPoolClientId
 				+ ", cognitoIdentityPoolId=" + cognitoIdentityPoolId + ", cognitoCloudfrontHlsdomain="
 				+ cognitoCloudfrontHlsdomain + ", cognitoCloudfrontClassfieddomain=" + cognitoCloudfrontClassfieddomain
 				+ ", cognitoS3ApiVersion=" + cognitoS3ApiVersion + ", cognitoS3BucketCourseDestination="

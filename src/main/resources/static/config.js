@@ -15,7 +15,7 @@ window._config = {
 	    	
 			_config.cognito.userPool.userPoolId = model.get("cognitoUserPoolId");
 		            
-			_config.cognito.userPool.clientId = model.get("cognitoUuserPoolClientId");
+			_config.cognito.userPool.clientId = model.get("cognitoUserPoolClientId");
 		        
 			_config.cognito.identityPool.identityPoolId = model.get("cognitoIdentityPoolId");
 			_config.cognito.cloudfront.hlsdomain = model.get("cognitoCloudfrontHlsdomain");
