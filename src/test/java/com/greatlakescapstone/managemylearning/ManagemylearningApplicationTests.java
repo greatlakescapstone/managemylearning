@@ -49,7 +49,7 @@ public class ManagemylearningApplicationTests {
 
 	@Test
 	public void testGetConfigurationsById() {
-		Configurations config = restTemplate.getForObject(getRootUrl() + "/config/lab", Configurations.class);
+		Configurations config = restTemplate.getForObject(getRootUrl() + "/config/production-adminportal", Configurations.class);
 		System.out.println(config);
 		Assert.assertNotNull(config);
 	}
